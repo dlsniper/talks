@@ -1,0 +1,288 @@
+Getting started with Go
+
+15 Sept 2016
+
+Florin Pățan
+Cloud Services Engineer
+YouView TV Ltd.
+florinpatan@gmail.com
+http://github.com/dlsniper
+@dlsniper
+
+
+* About me
+
+.image dlsniper.jpg _ 150
+
+- gopher for ~3.5 years
+- Go plugin for IntelliJ maintainer
+- GoBridge Core Member - Workshop Logistics
+- Open-Source contributor
+
+* What is Go?
+
+
+* What is Go?
+
+"Go is an open source programming language that makes it easy to build simple, reliable, and efficient software."
+.caption [[https://golang.org][golang.org]]
+
+.image golangorg.png
+
+* What is Go for me?
+
+
+- Go make programming fun (again)
+- allows me to focus on the algorithm rather than how to implement the solution
+- mature community, growing at a good rate
+
+
+* Why should you learn Go?
+
+
+* Great mascot
+
+.image gopherbw.png _ 500
+
+.caption Copyright Renee French
+
+* Join the Go side
+
+.image darthgopher.png _ 300
+
+.caption Copyright "someone from the Internet"
+
+
+* If you are new to programming
+
+- Go is much simpler than many other languages
+- the syntax is in not in your way
+- introduces the advanced concepts of concurrency w/o the usual overhead
+- exposure to some machine parts work
+
+
+*Disclaimer*
+Depending on your goals, Go might not be the very best language to learn as a
+beginner. Languages such as Python or even Javascript might be more suitable.
+
+
+* If you know dynamic programming languages
+
+
+- type safety at compile time
+- syntax that sometimes feel like a dynamic language
+- simple and fast build system
+- much faster than the others (almost always)
+- single binary to deploy = love from your ops team
+
+
+* If you know C/C++/Java
+
+- fast compiler even with large projects
+- simplified syntax that allows you to focus on solving the problem
+- compiles to native code, cross-compiles to other OS-es (when possible)
+- can interact with C code via CGO
+- can be compiled to a binary with no external dependencies
+
+
+* If you are as an Ops person...
+
+The main reason would be: better tools.
+
+- replace your complex bash scripts with testable Go apps
+- write tools that help you create / maintain infrastructure
+- write tools that help you simulate protocols interactions: [[https://github.com/adrianco/spigo]]
+- all the new tools such as Docker, Kubernetes, CloudFoundry etc are written in Go
+
+
+* Go tooling
+
+
+* Go tooling
+
+- goimports (or gofmt)
+- golint and govet
+- go-staticcheck (or gometalinter)
+- guru
+- etc.
+
+Write your own tools using go/ast package
+
+
+* Go editors
+
+- Intellij IDEA (or any Jetbrains IDE), including the free Community Edition
+- VSCode
+- emacs
+- Atom
+- vim
+- LiteIDE
+- Sublime 3
+- many others
+
+
+* Is it production ready?
+
+
+* Users of Go out there
+
+- Google
+- CloudFlare
+- Canonical (Ubuntu)
+- Microsoft, Facebook, AWS, Heroku
+- Rkt, Docker, Kubernetes
+- Almost all HashiCorp tools
+
+List of Go users [[https://github.com/golang/go/wiki/GoUsers]]
+Some success stories [[https://github.com/golang/go/wiki/SuccessStories]]
+
+Probably your are using Go w/o knowing
+
+
+* The maturity of the eco-system
+
+A lot of libraries are very stable and batle tested
+
+Go favors composition thus gophers are focusing on making interchangeable libraries
+
+
+* Concrete examples of mature libraries
+
+To create a web app all you need is the standard library.
+
+However, if you want to add some convenience:
+
+- gorilla/mux or httprouter (to handle the routing)
+- sqlx (for SQL database interaction)
+- go-mysql-driver / libpq
+- logrus or gokit/kit/log
+- gokit to enable overall better app desgin
+
+* The Go Community
+
+* Go Code of Conduct
+
+Go has a Code of Conduct which enables gophers to be safe and welcomed in any
+official Go environment as well as places which choose to adhere to it.
+
+[[https://golang.org/conduct]]
+
+* Go Mailing Lists
+
+We have a mailing list for general questions or Go related things
+[[https://groups.google.com/forum/#!forum/golang-nuts]]
+
+We also have a mailing list for development of Go itself
+[[https://groups.google.com/forum/#!forum/golang-dev]]
+
+* Go Forum
+
+.caption [[https://forum.golangbridge.org]]
+
+.image goforum.png _ 900
+
+
+* Slack
+
+.caption [[https://gophers.slack.com]]
+
+- over 9600 Gophers (growing at a rate of ~150 gophers / week)
+- one of the largest known open Slacks for programmers
+- gophers from everywhere in the World
+- usually most questions are answered in real-time by always friendly gophers
+- governed by an enhanced CoC, GoBridge specific
+
+
+Invites: [[https://invites.slack.golangbridge.org][https://invites.slack.golangbridge.org]]
+
+
+* GoBridge
+
+.caption [[golangbridge.org]]
+
+.image gobridgeorg.png _ 775
+
+
+* GoBridge
+
+*Core*mission*
+Our core mission is to enable minorities in tech to use Go as a tool to learn and teach programming and, ultimately, to empower underrepresented groups in tech to help increase diversity in the Go community.
+
+
+* GoBridge
+
+*How*do*we*do*this?*
+
+- create safe spaces where everyone is welcomed
+- organize workshops
+- remote meetups
+- write training material
+- teach the teachers / organizers
+- try and connect organizers with sponsors
+
+* Resources
+
+
+* Resources - official
+
+The language tour: [[https://tour.golang.org]]
+
+Official:
+
+- [[https://golang.org/doc/code.html]] - to learn how to organize your Go workspace
+- [[https://golang.org/doc/effective_go.html]] - be more effective at writing Go
+- [[https://golang.org/ref/spec]] - learn more about the language itself
+- [[https://golang.org/doc/#articles]] - a lot more reading material
+- [[https://blog.golang.org]] - the Go blog
+
+And you can find even more material here: [[https://github.com/golang/go/wiki#learning-more-about-go]]
+
+* Resources - websites
+
+There are some awesome websites as well:
+
+- [[https://blog.gopheracademy.com]] - great resources for Gophers in general
+- [[http://gotime.fm]] - awesome weekly podcast of Go awesomeness
+- [[https://gobyexample.com]] - examples of how to do things in Go
+- [[http://go-database-sql.org]] - how to use SQL databases in Go
+- [[http://gophervids.appspot.com]] - list of Go related videos from various authors
+
+
+* Resources - blogs, social media & meetups
+
+- Peter Bourgon [[https://twitter.com/peterbourgon][@peterbourgon]] [[https://peter.bourgon.org/blog]]
+- Carlisia [[https://twitter.com/carlisia][@carlisia]]
+- Dave Cheney [[https://twitter.com/davecheney][@davecheney]] [[http://dave.cheney.net]]
+- Jaana Burcu Dogan [[https://twitter.com/rakyll][@rakyll]] [[http://golang.rakyll.org]]
+- William "Bill" Kennedy [[https://twitter.com][@goinggodotnet]] [[https://www.goinggo.net]]
+- Brian Ketelsen [[https://twitter.com/bketelsen][@bketelsen]] [[https://www.brianketelsen.com/blog]]
+
+List of Go meetups [[https://go-meetups.appspot.com]]
+
+
+* Books
+
+- The Go Programming Language [[http://www.gopl.io]]
+- Go In Action [[https://www.manning.com/books/go-in-action]]
+
+Many more new ones that I haven't read yet
+
+
+* Final thoughts
+
+* What is Go?
+
+- a general purpose programming language with a simple yet powerful syntax
+- it's particularly good for networking, service side long running processes and tools
+- optimized for readability and maintenance (and speed)
+- great in 80% of the times for 100% of those tasks
+
+
+* Conclusion
+
+Why should you learn Go?
+
+- because it's easy, fun yet very powerful even with all it's quirks
+- it will make you rethink the way you program in other languages
+- it will save you some money from running servers
+- it has a great community and a bright future ahead
