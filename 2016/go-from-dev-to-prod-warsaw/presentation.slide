@@ -1,0 +1,324 @@
+Go from Dev to Prod
+What to look out for when shipping (Go) code to production
+
+16 Sept 2016
+
+Florin Pățan
+Cloud Services Engineer
+YouView TV Ltd.
+florinpatan@gmail.com
+http://github.com/dlsniper
+@dlsniper
+
+
+* About me
+
+.image dlsniper.jpg _ 150
+
+- gopher for ~3.5 years
+- Go plugin for IntelliJ maintainer
+- GoBridge Core Member - Workshop Logistics
+- Open-Source contributor
+
+
+* Agenda
+
+Areas to consider when you before running your (Go) app to production:
+
+- Logging
+- Build
+- Testing
+- Benchmarking and profiling
+- Deploying
+- Monitoring
+
+
+* Logging
+
+
+* Logging
+
+Log useful information:
+
+- file and line number
+- machine readable format preferably (structured)
+- log the context in which an error happened
+- log to stdout and stderr OR syslog
+- don't spam your production logs (use info/error levels)
+
+* Logging
+
+Unstructured (free form) log example:
+
+  [info] file.go:42 processing request 1 for dlsniper ...
+
+Structured log examples:
+
+  type=info location=file.go:42 request_id=1 user_name=dlsniper ...
+
+  {"type": "info", "location": "file.go:42" "request_id": 1, "user_name": "dlsniper" ... }
+
+
+* Logging
+
+Choose a library that fits your project style / preference.
+
+There are lots of good options.
+
+A few popular libraries:
+
+- structured: [[https://godoc.org/github.com/go-kit/kit/log][go-kit/kit/log]], [[https://godoc.org/github.com/Sirupsen/logrus][logrus]], [[https://godoc.org/github.com/inconshreveable/log15][log15]]
+- unstructured: [[https://godoc.org/github.com/golang/glog][glog]], [[https://godoc.org/log][log]]
+
+
+* Building a Go app
+
+
+* Building the app
+
+- managing dependencies
+- testing
+- building
+
+
+* Dependency management in Go
+
+Vendoring:
+
+- copy a dependency in "vendor/" and maintain the package import path
+  the library: github.com/dlsniper/demo
+
+  imported as: import "github.com/dlsniper/demo"
+
+  vendored as: projectRootDir/vendor/github.com/dlsniper/demo
+- introduced as experimental feature of Go 1.5, here to stay from 1.7
+
+Caveat: do not vendor if you are a writing a library
+
+
+* Dependency management in Go
+
+A few vendoring tools:
+
+- godep
+- gb
+- glide
+- govendor
+- gvt
+- ...
+
+*** many more out there
+
+
+* Dependency management in Go
+
+Working with dependencies:
+
+- treat dependencies as you treat your code
+- always build the same thing on your machine as well as a CI system
+- commit your "vendor/" folder
+- go get doesn't understand versioning yet
+- tag your releases
+
+
+* Dependency management in Go
+
+Even when Go will have a package manager, it doesn't mean we can now start:
+
+- building a complex dependency tree
+- skip reading the dependency code
+- use outdated dependencies
+- trust the dependency source
+
+
+* Testing apps
+
+
+* Black box testing
+
+We have a package called demo in demo.go
+
+  package demo
+
+  func Add(x, y int) int {
+      return x + y
+  }
+
+A black box test for it would be demo_test.go
+
+  package demo_test
+
+  import "demo"
+
+  func TestAddWorks(t *testing.T) {
+      result := demo.Add(1, 1)
+      if result != 2 {
+          t.Errorf("calling demo.Add(1, 1) returned %d not 2", result)
+      }
+  }
+
+
+* Documentation testing
+
+Test documentation with testable examples. In examples_test.go add the following
+
+  package demo_test
+
+  import "demo"
+
+  func ExampleHello() {
+          result := demo.Add(1, 1)
+          // Output: result = 2
+  }
+
+
+* Building
+
+
+* Building a Go app
+
+Build a statically linked, no CGO, Linux/amd64 versioned app:
+
+  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+  go build \
+    -tags netgo \
+    -installsuffix netgo \
+    -ldflags "-X main.version=${VERSION}" \
+    -o binaryName \
+   full/package/import/path
+
+*** Be aware of the differences in DNS resolvers between the Go and CGO one.
+
+Why is it useful to tag (version) your release:
+
+  {"type": "info", "version": "abcd1234...", "location": "file.go:42" "request_id": 1, \
+   "user_name": "dlsniper" ... }
+
+
+* Benchmarking and profiling
+
+
+* Benchmarking and profiling
+
+Common situations:
+
+- OMG GC! It's going to be slow
+- I think / know <something> is going to be slow
+- what's the fastest way to do <something>?
+
+
+* Benchmarking and profiling
+
+Which one is faster?
+
+.code demo_test.go
+
+
+* Benchmarking and profiling
+
+.image assume-fast-or-slow.jpg _ 800
+
+
+* Benchmarking and profiling
+
+Profile CPU:
+
+    go test -bench . -benchtime 1m demo_test.go
+
+    BenchmarkSprint-8       500000000              183 ns/op
+    BenchmarkSprintf-8      1000000000              95.7 ns/op
+    PASS
+    ok      command-line-arguments   213.471s
+
+Profile memory:
+
+    go test -bench . -benchmem -memprofilerate=1 -benchtime 1m demo_test.go
+
+    BenchmarkSprint-8       50000000              5245 ns/op              21 B/op          2 allocs/op
+    BenchmarkSprintf-8      50000000              1495 ns/op               5 B/op          1 allocs/op
+    PASS
+    ok      command-line-arguments  340.888s
+
+
+* Benchmarking and profiling
+
+How to address performance issues:
+
+- make changes
+- profile OR monitor
+- repeat until satisfied
+- include benchmarks as part of your CI pipeline
+
+  package demo_test
+
+  import "demo"
+
+  func BenchmarkQuickAdd(b *testing.B) {
+      for i:=0; i<b.N; i++ {
+            demo.Add(i, 0)
+      }
+  }
+
+* Benchmarking and profiling
+
+There are better ways to speed up your code:
+
+- does it matter as often as you think it does?
+- when it matters
+- where it matters
+- the fastest code is not to run any code (-1 allocs)
+
+* Deployment
+
+
+* Deployment
+
+- there is no "The one true way of deploying Go"
+- don't deploy your sources, deploy artifacts
+- Go runs almost everywhere
+
+
+* Raspberry Pi cluster
+
+.image k8spi.jpg _ 400
+
+.caption Credits: [[www.jinkit.com/k8s-on-rpi]]
+
+* Containers
+
+Common practices:
+
+- use Scratch, Alpine or Busybox as base image if possible
+- don't ship your sources in production via containers, ship artifacts
+
+
+* Tracing and Monitoring
+
+
+* Tracing
+
+Allows you to follow the execution of requests across services.
+
+Client libraries:
+- [[https://godoc.org/github.com/go-kit/kit/tracing/opentracing][go-kit/tracing/opentracing]], [[https://godoc.org/golang.org/x/net/trace][x/net/trace]]
+
+Server:
+- [[https://github.com/tracer/tracer][Tracer - github.com/tracer/tracer]]
+
+
+* Monitoring
+
+Simple monitoring for local / test apps: [[https://github.com/divan/expvarmon][divan/expvarmon]]
+
+Monitoring servers written in Go:
+- [[https://prometheus.io/][Prometheus - https://prometheus.io]]
+- [[http://snap-telemetry.io][Snap - http://snap-telemetry.io]]
+
+
+* Wrap up
+
+- vendoring guarantees dependencies will always be there
+- building and deploying are simple enough to be adapted to existing systems
+- don't assume anything about performance until you profile it
+- fastest code is the one that doesn't need to run
+- log what is important, trace and monitor everything else

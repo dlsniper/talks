@@ -1,0 +1,17 @@
+FROM alpine:3.4
+MAINTAINER Florin Patan "florinpatan@gmail.com"
+
+WORKDIR /
+
+# DNS stuff
+RUN echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
+
+# SSL certs
+RUN apk add --update ca-certificates \
+    && rm -rf /var/cache/apk/*
+
+# Binary
+ADD codemo /codemo
+
+# Runtime
+CMD ["/codemo"]
