@@ -95,6 +95,22 @@ The main reason would be: better tools.
 - all the new tools such as Docker, Kubernetes, CloudFoundry etc are written in Go
 
 
+* Go features
+
+* Go features
+
+- Easy to read / write
+- Fast to compile
+- Cross platform, natively compiled
+- Produces a single executable
+- Statically typed
+- Garbage collected
+- Concurrency
+- Composable types
+- Interfaces satisfied implicitly
+- Return multiple values
+
+
 * Go tooling
 
 
@@ -186,7 +202,7 @@ We also have a mailing list for development of Go itself
 
 .caption [[https://gophers.slack.com]]
 
-- over 9600 Gophers (growing at a rate of ~150 gophers / week)
+- over 10500 Gophers (growing at a rate of ~150 gophers / week)
 - one of the largest known open Slacks for programmers
 - gophers from everywhere in the World
 - usually most questions are answered in real-time by always friendly gophers
@@ -250,15 +266,17 @@ There are some awesome websites as well:
 
 * Resources - blogs, social media & meetups
 
-- Peter Bourgon [[https://twitter.com/peterbourgon][@peterbourgon]] [[https://peter.bourgon.org/blog]]
-- Carlisia [[https://twitter.com/carlisia][@carlisia]]
-- Dave Cheney [[https://twitter.com/davecheney][@davecheney]] [[http://dave.cheney.net]]
 - Jaana Burcu Dogan [[https://twitter.com/rakyll][@rakyll]] [[http://golang.rakyll.org]]
+- Carlisia Campos [[https://twitter.com/carlisia][@carlisia]]
+- Jessie Frazelle [[https://twitter.com/jessfraz][jessfraz]] [[https://blog.jessfraz.com]]
+- Peter Bourgon [[https://twitter.com/peterbourgon][@peterbourgon]] [[https://peter.bourgon.org/blog]]
+- Dave Cheney [[https://twitter.com/davecheney][@davecheney]] [[http://dave.cheney.net]]
 - William "Bill" Kennedy [[https://twitter.com][@goinggodotnet]] [[https://www.goinggo.net]]
 - Brian Ketelsen [[https://twitter.com/bketelsen][@bketelsen]] [[https://www.brianketelsen.com/blog]]
 
 List of Go meetups [[https://go-meetups.appspot.com]]
 
+- GDG Berlin Golang [[https://www.meetup.com/golang-users-berlin]] (7th largest Go meetup in the world)
 
 * Books
 
