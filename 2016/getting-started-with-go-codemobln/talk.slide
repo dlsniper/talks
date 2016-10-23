@@ -24,7 +24,8 @@ http://github.com/dlsniper
 
 * What is Go?
 
-"Go is an open source programming language that makes it easy to build simple, reliable, and efficient software."
+"Go is an open source programming language that makes it easy to build simple,
+reliable, and efficient software."
 .caption [[https://golang.org][golang.org]]
 
 .image golangorg.png
@@ -32,7 +33,7 @@ http://github.com/dlsniper
 * What is Go for me?
 
 
-- Go make programming fun (again)
+- Go makes programming fun (again)
 - allows me to focus on the algorithm rather than how to implement the solution
 - mature community, growing at a good rate
 
@@ -56,9 +57,9 @@ http://github.com/dlsniper
 * If you are new to programming
 
 - Go is much simpler than many other languages
-- the syntax is in not in your way
+- the syntax is not in your way
 - introduces the advanced concepts of concurrency w/o the usual overhead
-- exposure to some machine parts work
+- exposure to how parts of the computer work
 
 
 *Disclaimer*
@@ -70,7 +71,7 @@ beginner. Languages such as Python or even Javascript might be more suitable.
 
 
 - type safety at compile time
-- syntax that sometimes feel like a dynamic language
+- syntax that sometimes feels like a dynamic language
 - simple and fast build system
 - much faster than the others (almost always)
 - single binary to deploy = love from your ops team
@@ -120,6 +121,7 @@ The main reason would be: better tools.
 - golint and govet
 - go-staticcheck (or gometalinter)
 - guru
+- [[https://play.golang.org][Go Playground]]
 - etc.
 
 Write your own tools using go/ast package
@@ -157,7 +159,7 @@ Probably your are using Go w/o knowing
 
 * The maturity of the eco-system
 
-A lot of libraries are very stable and batle tested
+A lot of libraries are very stable and battle tested
 
 Go favors composition thus gophers are focusing on making interchangeable libraries
 
@@ -222,7 +224,9 @@ Invites: [[https://invites.slack.golangbridge.org][https://invites.slack.golangb
 * GoBridge
 
 *Core*mission*
-Our core mission is to enable minorities in tech to use Go as a tool to learn and teach programming and, ultimately, to empower underrepresented groups in tech to help increase diversity in the Go community.
+Our core mission is to enable minorities in tech to use Go as a tool to learn
+and teach programming and, ultimately, to empower underrepresented groups in
+tech to help increase diversity in the Go community.
 
 
 * GoBridge
@@ -251,7 +255,7 @@ Official:
 - [[https://golang.org/doc/#articles]] - a lot more reading material
 - [[https://blog.golang.org]] - the Go blog
 
-And you can find even more material here: [[https://github.com/golang/go/wiki#learning-more-about-go]]
+And you can find even more material here: [[https://github.com/golang/go/wiki]]
 
 * Resources - websites
 
@@ -266,13 +270,13 @@ There are some awesome websites as well:
 
 * Resources - blogs, social media & meetups
 
-- Jaana Burcu Dogan [[https://twitter.com/rakyll][@rakyll]] [[http://golang.rakyll.org]]
+- Peter Bourgon [[https://twitter.com/peterbourgon][@peterbourgon]] - [[https://peter.bourgon.org/blog]]
 - Carlisia Campos [[https://twitter.com/carlisia][@carlisia]]
-- Jessie Frazelle [[https://twitter.com/jessfraz][jessfraz]] [[https://blog.jessfraz.com]]
-- Peter Bourgon [[https://twitter.com/peterbourgon][@peterbourgon]] [[https://peter.bourgon.org/blog]]
-- Dave Cheney [[https://twitter.com/davecheney][@davecheney]] [[http://dave.cheney.net]]
-- William "Bill" Kennedy [[https://twitter.com][@goinggodotnet]] [[https://www.goinggo.net]]
-- Brian Ketelsen [[https://twitter.com/bketelsen][@bketelsen]] [[https://www.brianketelsen.com/blog]]
+- Dave Cheney [[https://twitter.com/davecheney][@davecheney]] - [[http://dave.cheney.net]]
+- Jaana Burcu Dogan [[https://twitter.com/rakyll][@rakyll]] - [[http://golang.rakyll.org]]
+- Jessie Frazelle [[https://twitter.com/jessfraz][jessfraz]] - [[https://blog.jessfraz.com]]
+- William "Bill" Kennedy [[https://twitter.com][@goinggodotnet]] - [[https://www.goinggo.net]]
+- Brian Ketelsen [[https://twitter.com/bketelsen][@bketelsen]] - [[https://www.brianketelsen.com/blog]]
 
 List of Go meetups [[https://go-meetups.appspot.com]]
 
@@ -283,7 +287,7 @@ List of Go meetups [[https://go-meetups.appspot.com]]
 - The Go Programming Language [[http://www.gopl.io]]
 - Go In Action [[https://www.manning.com/books/go-in-action]]
 
-Many more new ones that I haven't read yet
+For more books, see: [[https://github.com/golang/go/wiki/Books]]
 
 
 * Final thoughts
