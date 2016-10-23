@@ -100,17 +100,22 @@ The main reason would be: better tools.
 
 * Go features
 
-- Easy to read / write
-- Fast to compile
-- Cross platform, natively compiled
-- Produces a single executable
-- Statically typed
-- Garbage collected
-- Concurrency
-- Composable types
-- Interfaces satisfied implicitly
-- Return multiple values
+- easy to read / write
+- fast to compile
+- cross platform, natively compiled
+- produces a single executable
+- statically typed
+- garbage collected
+- concurrency
+- composable types
+- interfaces satisfied implicitly
+- return multiple values
 
+* Go's missing features
+
+- generics
+- overloads
+- implicit type conversions
 
 * Go tooling
 
@@ -243,7 +248,7 @@ tech to help increase diversity in the Go community.
 * Resources
 
 
-* Resources - official
+* Official
 
 The language tour: [[https://tour.golang.org]]
 
@@ -257,7 +262,7 @@ Official:
 
 And you can find even more material here: [[https://github.com/golang/go/wiki]]
 
-* Resources - websites
+* Websites
 
 There are some awesome websites as well:
 
@@ -268,13 +273,13 @@ There are some awesome websites as well:
 - [[http://gophervids.appspot.com]] - list of Go related videos from various authors
 
 
-* Resources - blogs, social media & meetups
+* Blogs, social media & meetups
 
 - Peter Bourgon [[https://twitter.com/peterbourgon][@peterbourgon]] - [[https://peter.bourgon.org/blog]]
 - Carlisia Campos [[https://twitter.com/carlisia][@carlisia]]
 - Dave Cheney [[https://twitter.com/davecheney][@davecheney]] - [[http://dave.cheney.net]]
 - Jaana Burcu Dogan [[https://twitter.com/rakyll][@rakyll]] - [[http://golang.rakyll.org]]
-- Jessie Frazelle [[https://twitter.com/jessfraz][jessfraz]] - [[https://blog.jessfraz.com]]
+- Jessie Frazelle [[https://twitter.com/jessfraz][@jessfraz]] - [[https://blog.jessfraz.com]]
 - William "Bill" Kennedy [[https://twitter.com][@goinggodotnet]] - [[https://www.goinggo.net]]
 - Brian Ketelsen [[https://twitter.com/bketelsen][@bketelsen]] - [[https://www.brianketelsen.com/blog]]
 
