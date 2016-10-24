@@ -101,15 +101,16 @@ The main reason would be: better tools.
 * Go features
 
 - easy to read / write
-- fast to compile
-- cross platform, natively compiled
-- produces a single executable
 - statically typed
 - garbage collected
-- concurrency
+- fast to compile
+- concurrency is baked into the language
+- functions are first class citizens
 - composable types
 - interfaces satisfied implicitly
 - return multiple values
+- produces a single executable
+- cross platform, natively compiled
 
 * Go's missing features
 
@@ -299,9 +300,9 @@ For more books, see: [[https://github.com/golang/go/wiki/Books]]
 
 * What is Go?
 
-- a general purpose programming language with a simple yet powerful syntax
-- it's particularly good for networking, service side long running processes and tools
+- a general purpose cross-platform programming language
 - optimized for readability and maintenance (and speed)
+- it's particularly good for networking, service side long running processes and tools
 - great in 80% of the times for 100% of those tasks
 
 
