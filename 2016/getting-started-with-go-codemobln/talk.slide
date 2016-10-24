@@ -112,6 +112,34 @@ The main reason would be: better tools.
 - produces a single executable
 - cross platform, natively compiled
 
+: It compiles in ~1h on my machine
+
+* Go supported platforms
+
+    android/amd64
+    android/arm             netbsd/arm
+    android/arm64           openbsd/386
+    darwin/386              openbsd/amd64
+    darwin/amd64            openbsd/arm
+    darwin/arm              plan9/386
+    darwin/arm64            plan9/amd64
+    dragonfly/amd64         plan9/arm
+    freebsd/386             solaris/amd64
+    freebsd/amd64           windows/386
+    freebsd/arm             nacl/arm
+    linux/386               netbsd/386
+    linux/amd64             netbsd/amd64
+    linux/arm
+    linux/arm64
+    linux/mips64
+    linux/mips64le
+    linux/ppc64
+    linux/ppc64le
+    linux/s390x
+    nacl/386
+    nacl/amd64p32
+Oh and Javascript via GopherJS
+
 * Go's missing features
 
 - generics
@@ -286,7 +314,8 @@ There are some awesome websites as well:
 
 List of Go meetups [[https://go-meetups.appspot.com]]
 
-- GDG Berlin Golang [[https://www.meetup.com/golang-users-berlin]] (7th largest Go meetup in the world)
+- Women Who Go Berlin [[http://www.meetup.com/women-who-go-berlin]] - [[http://www.meetup.com/women-who-go-berlin][@WWGBerlin]] (2nd largest in the world)
+- GDG Berlin Golang [[https://www.meetup.com/golang-users-berlin]] - [[https://twitter.com/GDGBerlinGolang][@GDGBerlinGolang]] (7th largest Go meetup in the world)
 
 * Books
 
