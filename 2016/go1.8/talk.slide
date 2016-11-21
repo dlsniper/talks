@@ -1,0 +1,197 @@
+Go 1.8
+The best Go version so far
+20 Nov 2016
+
+Florin Pățan
+Cloud Services Engineer
+YouView TV Ltd.
+florinpatan@gmail.com
+http://github.com/dlsniper
+@dlsniper
+
+
+* About me
+
+.image dlsniper.jpg _ 150
+
+- gopher for ~3.5 years
+- Go plugin for IntelliJ maintainer
+- GoBridge Core Member - Workshop Logistics
+- Open-Source contributor
+
+
+* A LOT of performance optimizations
+
+- 101 different CLs to boost the performance
+
+* New build mode
+
+Go apps are getting plugins!
+
+- for now only on Mac and Linux
+- initialized only one time
+- cannot be deregistered
+- documentation [[https://tip.golang.org/pkg/plugin]]
+- [[https://golang.org/cl/27823][27823]] [[https://golang.org/cl/29392][29392]]
+
+
+* Compiler changes
+
+- new compiler frontend
+- SSA backend for 386, nacl, arm, arm64, ppc64, ppc64le, s390x ...
+- many improvements to lower the binary size and compile speed
+
+
+* Garbage Collector
+
+Part of the eliminate STW stack re-scanning efforts ([[https://github.com/golang/proposal/blob/master/design/17503-eliminate-rescan.md][proposal document]]).
+
+Hybrid write barrier which lowers the GC pauses to under 100us, [[https://golang.org/cl/31765][31765]]
+
+* Parameter liveness changes
+
+Function arguments no longer live until end of functions.
+
+.code liveness.go /^type big/,/x\)\n}/
+
+- CL: [[https://golang.org/cl/28310][28310]]
+- More details: [[https://github.com/golang/go/issues/15277#issuecomment-221768072]]
+
+
+* New platforms
+
+- mips, mipsle
+
+
+* Go tool:
+
+- can set secure/insecure GIT schemes using GIT_ALLOW_PROTOCOL env var [[https://golang.org/cl/30135][30135]]
+- go bug -> [[https://golang.org/cl/32090][32090]]
+
+
+* No more GOPATH
+
+Sort of.
+
+Default GOPATH is now under $HOME/go [[https://golang.org/cl/32019][32019]]
+
+
+* Changes by package
+
+
+* crypto
+
+- ChaCha20-Poly1305 cipher suites [[https://golang.org/cl/30957][30957]] [[https://golang.org/cl/30958][30958]]
+- AES-GCM have priority when hardware support is present [[https://golang.org/cl/32871][32871]]
+
+
+* database/sql
+
+- Pinger interface added to driver Conn
+- Context methods [[https://golang.org/cl/29381][29381]] [[https://golang.org/cl/31258][31258]]
+- Use named parameter in query arguments [[https://golang.org/cl/30166][30166]]
+- Support for multiple result sets [[https://golang.org/cl/30592][30592]]
+
+
+* encoding
+
+- encoding/binary: supports bool values [[https://golang.org/cl/28514][28514]]
+- encoding/json: add struct and field name to UnmarshalTypeError message [[https://golang.org/cl/18692][18692]]
+- encoding/json: use standard ES6 formatting for numbers during marshal [[https://golang.org/cl/30371][30371]]
+- encoding/xml: wildcard support for collecting all attributes [[https://golang.org/cl/30946][30946]]
+
+
+* expvar
+
+- add Value methods [[https://golang.org/cl/30917][30917]]
+- export http.Handler [[https://golang.org/cl/24722][24722]]
+
+* net
+
+- add Buffers type, do writev on unix [[https://golang.org/cl/29951][29951]] [[https://golang.org/cl/32371][32371]]
+- add Resolver type, Dialer.Resolver, and DefaultResolver [[https://golang.org/cl/29440][29440]]
+- break up >1GB reads and writes on stream connections [[https://golang.org/cl/31584][31584]]
+- respect resolv.conf rotate option [[https://golang.org/cl/29233][29233]]
+- use libresolv rules for ndots range and validation [[https://golang.org/cl/24901][24901]]
+
+* net/http
+
+- Server.Close & Server.Shutdown for forced & graceful shutdown [[https://golang.org/cl/32329][32329]]
+- add Server.ReadHeaderTimeout, IdleTimeout, document WriteTimeout [[https://golang.org/cl/32024][32024]]
+- add Transport.ProxyConnectHeader to control headers to proxies [[https://golang.org/cl/32481][32481]]
+- add an interface for HTTP/2 server push [[https://golang.org/cl/32012][32012]]
+- make Server Handler's Request.Context be done on conn errors [[https://golang.org/cl/31173][31173]]
+- make Server log on bad requests from clients [[https://golang.org/cl/27950][27950]]
+- make Transport support international domain names [[https://golang.org/cl/29072][29072]]
+- support If-Match in ServeContent [[https://golang.org/cl/32014][32014]]
+
+
+* runtime
+
+- profile goroutines holding contended mutexes. [[https://golang.org/cl/29650][29650]]
+- disable stack rescanning by default [[https://golang.org/cl/31766][31766]]
+- include pre-panic/throw logs in core dumps [[https://golang.org/cl/32013][32013]]
+
+
+* sort
+
+    sort.Slice(s, func(i, j int) bool {
+        if s[i].Foo != s[j].Foo {
+            return s[i].Foo < s[j].Foo
+        }
+        return s[i].Bar < s[j].Bar
+    })
+
+- add Slice, SliceStable, and SliceIsSorted helpers for sorting slices [[https://golang.org/cl/27321][27321]]
+
+
+* testing
+
+- add Name method to *T and *B [[https://golang.org/cl/29970][29970]]
+- add T.Context method [[https://golang.org/cl/31724][31724]]
+- mark tests and benchmarks failed if a race occurs during execution [[https://golang.org/cl/32615][32615]]
+- respect benchtime on very fast benchmarks [[https://golang.org/cl/26664][26664]]
+
+
+* Documentation
+
+A lot more examples in documentation
+
+
+* Resources
+
+
+- Changelog of [[https://github.com/golang/go/blob/master/doc/go1.8.txt][go1.8]]
+- Curated list of CLs [[https://twitter.com/golang_cls][@golang_cls]]
+
+
+* Questions
+
+
+* Open Q&A
+
+
+* Guest speakers
+
+Elena Grahovac
+Backend web developer. Co-host of [[https://twitter.com/GolangShow][@GolangShow]]
+[[https://twitter.com/webdeva][@webdeva]]
+
+
+Daniel Whitenack
+Data scientist, physicist & gopher
+[[https://twitter.com/dwhitena][@dwhitena]]
+
+
+Andrew Minkin
+Backend developer, gopher and a good person
+[[https://twitter.com/Gen1us2k][@Gen1us2k]]
+
+
+* Copyright
+
+Parts of these presentation are copyrighted under the Go project license.
+
+  Copyright 2016 The Go Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style
+  license that can be found in the LICENSE-go file.

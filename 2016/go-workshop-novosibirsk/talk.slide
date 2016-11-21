@@ -1,0 +1,116 @@
+Go Workshop
+
+18 Nov 2016
+
+* About us
+
+Natalie Pistunovich
+Backend Engineer
+adjust
+[[https://twitter.com/NataliePis][@NataliePis]]
+GoBridge Berlin Chapter
+
+Florin Pățan
+Cloud Services Engineer
+YouView TV Ltd.
+[[https://twitter.com/dlsniper][@dlsniper]]
+GoBridge Core Team - Workshop Logistics
+
+
+* GoBridge
+
+.caption [[golangbridge.org]]
+
+.image gobridgeorg.png _ 775
+
+
+* GoBridge
+
+*Core*mission*
+Our core mission is to enable minorities in tech to use Go as a tool to learn
+and teach programming and, ultimately, to empower underrepresented groups in
+tech to help increase diversity in the Go community.
+
+
+* GoBridge
+
+*How*do*we*do*this?*
+
+- create safe spaces where everyone is welcomed
+- organize workshops
+- remote meetups
+- write training material
+- teach the teachers / organizers
+- try and connect organizers with sponsors
+
+
+* The Workshop
+
+* Prerequisites
+
+
+- working Go environment: [[https://golang.org/doc/install]]
+- Signup for the API [[https://home.openweathermap.org/users/sign_up]]
+- some programming experience
+
+* Course material
+
+
+Official Go Tour: [[https://tour.golang.org]]
+
+How I Start: [[https://howistart.org/posts/go/1]]
+
+.caption Donated by [[https://peter.bourgon.org/blog][Peter Bourgon]] to GoBridge Berlin Chapter
+
+
+* Resources
+
+
+* Official
+
+The language tour: [[https://tour.golang.org]]
+
+Official:
+
+- [[https://golang.org/doc/code.html]] - to learn how to organize your Go workspace
+- [[https://golang.org/doc/effective_go.html]] - be more effective at writing Go
+- [[https://golang.org/ref/spec]] - learn more about the language itself
+- [[https://golang.org/doc/#articles]] - a lot more reading material
+- [[https://blog.golang.org]] - the Go blog
+
+And you can find even more material here: [[https://github.com/golang/go/wiki]]
+
+
+* Websites
+
+There are some awesome websites as well:
+
+- [[https://blog.gopheracademy.com]] - great resources for Gophers in general
+- [[http://gotime.fm]] - awesome weekly podcast of Go awesomeness
+- [[https://gobyexample.com]] - examples of how to do things in Go
+- [[http://go-database-sql.org]] - how to use SQL databases in Go
+- [[http://gophervids.appspot.com]] - list of Go related videos from various authors
+
+
+* Blogs, social media & meetups
+
+- Peter Bourgon [[https://twitter.com/peterbourgon][@peterbourgon]] - [[https://peter.bourgon.org/blog]]
+- Carlisia Campos [[https://twitter.com/carlisia][@carlisia]]
+- Dave Cheney [[https://twitter.com/davecheney][@davecheney]] - [[http://dave.cheney.net]]
+- Jaana Burcu Dogan [[https://twitter.com/rakyll][@rakyll]] - [[http://golang.rakyll.org]]
+- Jessie Frazelle [[https://twitter.com/jessfraz][@jessfraz]] - [[https://blog.jessfraz.com]]
+- William "Bill" Kennedy [[https://twitter.com][@goinggodotnet]] - [[https://www.goinggo.net]]
+- Brian Ketelsen [[https://twitter.com/bketelsen][@bketelsen]] - [[https://www.brianketelsen.com/blog]]
+- Mat Ryer [[https://twitter.com/matryer][@matryer]] -  [[http://matryer.com]]
+
+List of Go meetups [[https://go-meetups.appspot.com]]
+
+- GolangNSK [[https://www.meetup.com/GolangNSK]]
+
+
+* Books
+
+- The Go Programming Language [[http://www.gopl.io]]
+- Go In Action [[https://www.manning.com/books/go-in-action]]
+
+For more books, see: [[https://github.com/golang/go/wiki/Books]]
