@@ -1,0 +1,311 @@
+Go Anti-Patterns
+These are not the patterns you are looking for
+
+19 Feb 2017
+
+Florin Pățan
+Cloud Services Engineer
+YouView TV Ltd.
+florinpatan@gmail.com
+http://github.com/dlsniper
+@dlsniper
+
+
+* About me
+
+.image dlsniper.jpg _ 150
+
+- gopher for ~4 years
+- GoBridge Core Member - Workshop Logistics
+- former Go plugin for IntelliJ maintainer
+- Open-Source contributor
+
+
+* Q & A
+
+Feel free to ask questions at the end of each slide or at the end of the presentation.
+
+More complex questions might be tackled at the end of the presentation / after it.
+
+
+* Style
+
+* Package organization
+
+- one file to rule them all
+- one package to rule them all
+- placing tests in a different package
+
+
+* Space, the final frontier
+
+I'm going to use my own formatting rules
+
+
+* Implementation
+
+
+* Checking / comparing errors
+
+Don't:
+
+    func DontErr() error {
+        return fmt.Errorf("some error")
+    }
+
+Do:
+
+    // ErrSome
+    var ErrSome = errors.New("some error")
+
+    func DoErr() error {
+        return ErrSome
+    }
+
+
+Why?
+
+    func Demo() {
+        if DoErr() == ErrSome {
+            fmt.Println("Some error")
+        }
+    }
+
+
+* To pointer or not to pointer?
+
+Don't:
+
+    func Greetings(name *string) string {
+        return "Hello" + *name
+    }
+
+
+Do:
+
+    func Greetings(name string) string {
+        return "Hello" + name
+    }
+
+
+* To pointer or not to pointer?
+
+Don't:
+
+    var demo1 []*MyStruct
+    var demo2 *[]MyStruct
+    var demo3 *[]*MyStruct
+
+Do:
+
+    var demo []MyStruct
+
+More reading:
+
+- [[https://github.com/golang/go/wiki/CodeReviewComments#pass-values]]
+- [[https://github.com/golang/go/wiki/CodeReviewComments#receiver-type]]
+
+
+* Context parameter bag
+
+Don't:
+
+    func AddDB(ctx context.Context, db *sql.DB) context.Context {
+        return context.WithValue(ctx, "db", db)
+    }
+
+Do:
+
+    // Send the db variable to your function/method
+
+
+* Logging in libraries
+
+
+Don't:
+
+    func Demo() {
+        log.Printf("This is a log line from %s\n", "demo")
+    }
+
+Do:
+
+    // Logger function
+    type Logger func(message string, args ...interface{})
+
+    var logger Logger = log.Printf
+
+    func SetLogger(myLogger Logger) {
+        logger = myLogger
+    }
+
+    func Demo(logger Logger) {
+        logger("This is a log line from %s\n", "demo")
+    }
+
+
+* Conceptual
+
+
+* Generics in Go interface{}
+
+
+Don't use interface{} to replace your actual type.
+
+
+* Return types not interfaces
+
+Always aim to return the actual type and not an interface.
+
+Always aim to accept an interface and not the actual type.
+
+
+* Interface pollution
+
+Don't create interfaces until you need them, let them emerge from your code.
+
+When you create them, keep them small, only a few methods each.
+
+The less methods they have, the better the decoupling in the code that uses them.
+
+
+* Dependency Injection (Containers)
+
+
+They prevent the compiler and other SSA tools from understanding what's happening in your code
+
+They are just a fancy way of saying: map[string]interface{}
+
+
+* Panics are the new Exceptions
+
+Don't:
+
+    func Add(a, b int) int {
+        if a < b {
+            panic("I can add only if a > b")
+        }
+
+        return a+b
+    }
+
+Do:
+
+    var ErrASmallerThanB = errors.New("I can add only if a > b")
+
+    func Add(a, b int) (int, error) {
+        if a < b {
+            return 0, ErrASmallerThanB
+        }
+
+        return a+b, nil
+    }
+
+
+* What's the best package for <x>???
+
+- godoc.org sorts by popularity (imports mainly, not only Github stars)
+
+Example:
+
+JWT
+
+- [[https://jwt.io/#libraries-io]] recommends [[github.com/SermoDigital/jose]]
+- [[https://godoc.org/?q=jwt]] recommends [[github.com/dgrijalva/jwt-go]]
+
+* What's the fastest
+
+- what's the fast to do <x>?
+- what's the fastest between <x> and <y>?
+
+.code fast-slow_test.go
+
+* What's the fastest
+
+Using Ubuntu 16.04 and Go 1.6:
+
+Profile CPU:
+
+    go test -bench . -benchtime 1m fast-slow_test.go
+
+    BenchmarkSprint-8       500000000              183 ns/op
+    BenchmarkSprintf-8      1000000000              95.7 ns/op
+    PASS
+    ok      command-line-arguments   213.471s
+
+Using Windows 10 and Go 1.8:
+
+Profile CPU:
+
+    go test -bench . -benchtime 1m fast-slow_test.go
+
+    BenchmarkSprint-8       500000000              145 ns/op
+    BenchmarkSprintf-8      1000000000              81.4 ns/op
+    PASS
+    ok      command-line-arguments  179.911s
+
+
+* What's the fastest
+
+Using Ubuntu 16.04 and Go 1.6:
+
+Profile memory:
+
+    go test -bench . -benchmem -memprofilerate=1 -benchtime 1m fast-slow_test.go
+
+    BenchmarkSprint-8       50000000              5245 ns/op              21 B/op          2 allocs/op
+    BenchmarkSprintf-8      50000000              1495 ns/op               5 B/op          1 allocs/op
+    PASS
+    ok      command-line-arguments  340.888s
+
+Using Windows 10 and Go 1.8:
+
+Profile memory:
+
+    go test -bench . -benchmem -memprofilerate=1 -benchtime 1m fast-slow_test.go
+
+    BenchmarkSprint-8       30000000              4521 ns/op              21 B/op          2 allocs/op
+    BenchmarkSprintf-8      100000000             1377 ns/op               5 B/op          1 allocs/op
+    PASS
+    ok      command-line-arguments  277.987s
+
+
+* What's the fastest
+
+What I've neglected to tell you:
+
+- they are different machines, with different processors
+- they are laptops
+- benchmarks were ran only once
+
+Always know your target environment.
+
+Always know what's important for your in terms of "fast path".
+
+
+* Operational
+
+
+* Operational
+
+- don't install Go it's a CI server
+- logging for metrics
+- don't bother with containers unless you really need to
+
+
+* Wrap up
+
+
+* Conclusion
+
+- do not code patterns first, let them emerge from your code
+- don't use interface{} unless there's no other choice at all
+- profile then optimize, for your target deployment preferably
+
+* Questions ?
+
+
+* References
+
+- [[https://golang.org/doc/effective_go.html]]
+- [[https://github.com/golang/go/wiki/CodeReviewComments]]
