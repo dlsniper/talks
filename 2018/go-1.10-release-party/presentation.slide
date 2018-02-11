@@ -21,6 +21,14 @@ This presentation is based on the [[https://github.com/davecheney/go-1.8-release
 
 View it online here: [[https://talks.godoc.org/github.com/dlsniper/talks/2018/go-1.10-release-party/presentation.slide]]
 
+* Thank you
+
+I would like to thank [[https://twitter.com/davecheney][Dave Cheney]], who besides the template for the slides also provided critical feedback for these slides.
+The Go community would not be the same without you Dave, thank you for all your work.
+
+
+* Go 1.10
+
 * Go 1.10
 
 #Go 1.10 is released!
@@ -56,11 +64,49 @@ So, what's happened in the last six months?
 
 There are no significant changes to the language specification.
 
-However, there are a couple of minor changes:
+However, there are a couple of minor changes.
 
-- the compilers have been updated to allow the index expression *x[1.0*<<*s]* where *s* is an *untyped*constant*
+* Language Changes
 
-- method expressions such as *struct{io.Reader}.Read*, that the compilers already accepted, are now permitted by the language grammar
+First, the compilers have been updated to allow the index expression *x[1.0*<<*s]* where *s* is an *untyped*constant*
+
+    package main
+
+    func main() {
+        var s uint = 10
+        a := make([]byte, 1.0<<s) // valid
+        _ = a[1.0<<s]             // in Go 1.9 accepted by go/types, not accepted by cmd/compile
+    }
+
+In Go 1.9:
+
+ prog.go:6:11: invalid operation: 1 << s (shift of type float64)
+
+In Go 1.10
+
+ panic: runtime error: index out of range
+
+* Language Changes
+
+Method expressions such as *struct{io.Reader}.Read*, that *the*compilers*already*accepted*, are now permitted by the language grammar
+
+    package main
+    import "io"
+    type MyType struct { io.Reader }
+    func main() {
+        m := MyType{}
+        dst := make([]byte, 10)
+        l, err := struct{io.Reader}.Read(m, dst)
+        _, _, _ = l, err, dst
+    }
+
+Go 1.10 output:
+
+    go.struct { io.Reader }.Read: call to external function
+    main.main: relocation target go.struct { io.Reader }.Read not defined
+    main.main: undefined: "go.struct { io.Reader }.Read"
+
+We'll have to wait for Go 1.11, [[https://github.com/golang/go/issues/22444]] to get this fixed AND working.
 
 
 * Ports & OS Support
@@ -78,8 +124,13 @@ Go 1.10 is the last release that will run on:
 - OS X 10.8 Mountain Lion or OS X 10.9 Mavericks. Go 1.11 will require OS X 10.10 Yosemite or later
 - Windows XP or Windows Vista. Go 1.11 will require Windows 7 or later
 
+* Ports & OS Support
+
 On 32-bit MIPS systems, the new *GOMIPS* environment variable can be either *hardfloat* (default) or *softfloat* and selects whether to use hardware instructions or software emulation for floating-point computations.
 
+As you'll almost certainly be cross compiling for MIPS from a larger machine this is how you'd use softfloat:
+
+    % GOARCH=mips GOOS=linux GOMIPS=softfloat go build your/package/here
 
 * Performance
 
@@ -87,7 +138,9 @@ On 32-bit MIPS systems, the new *GOMIPS* environment variable can be either *har
 
 As always, the changes are so general and varied that precise statements about performance are difficult to make.
 
-Most programs should run a bit faster, due to speedups in the garbage collector, optimizations in the compiler and standard library.
+Most programs should hopefully run a bit faster, due to speedups in the garbage collector, optimizations in the compiler and standard library.
+
+However no official or unofficial comparisons are out for now so it's hard to talk about performance for this release just yet.
 
 
 * Compiler & Tools
@@ -96,38 +149,45 @@ Most programs should run a bit faster, due to speedups in the garbage collector,
 
 *go*build* now maintains a cache of recently built packages, separate from the installed packages in *$GOROOT/pkg* or *$GOPATH/pkg*.
 
-This means you *do*not*need* to run *go*build*-i* or *go*test*-i* any more, the build speed will be just as fast as if you would.
+This means you *do*not*need* to run *go*build*-i* or *go*test*-i* any more, the go tool automatically caches previous builds results.
+
+Furthermore, *go*build* command now detects out-of-date packages purely based on the content of source files, specified build flags, and metadata stored in the compiled packages. Modification times are no longer consulted or relevant.
 
 * Compiler & Tools - The Great Caching
 
 The caching change does not apply only to *go*build* but also to *go*test*.
-E.g. fresh copy of Terraform on a system without any installed package or cache: *
-
-- first go test ./... finished in about 3 minutes
-- second go test ./... finished in less than 40 seconds
 
 To benefit from the caching of tests there are *a*few*conditions* that *must*be*met*:
 
+- the results are successful
 - the test executable and command line match a previous run
 - the files and environment variables used by that run have not changed
-- the results are successful
-- the go test command received a list of packages to test, go test ./... for example
-- the test command line uses a subset of the test flags, -cpu, -list, -parallel, -run, -short, and -v
+- the go test command received a list of packages to test, *go*test*./...* for example
+- the test command line uses a subset of the test flags, *-cpu*, *-list*, *-parallel*, *-run*, *-short*, and *-v*
 
-
-*** compiled on Windows 10 with an i7 6700HQ and 32GB RAM
-
-* Compiler & Tools - The Great Caching
-
-The *go*build* command now detects out-of-date packages purely based on the content of source files, specified build flags, and metadata stored in the compiled packages.
-
-Modification times are no longer consulted or relevant.
-
-* Compiler & Tools - The Great Caching
-
-To bypass the test cache, you need to run with *-count=1* parameter.
+To *bypass*the*test*cache*, you need to run with *-count=1* parameter.
 
 The output of the tests will also be modified due to caching. The run time of the tests will notify that the cached output is used, by displaying *(cached)* instead of the original test run time.
+
+* Compiler & Tools - The Great Caching
+
+E.g. fresh copy of Terraform on a system without any installed package or cache: *
+
+- first *go*test*./...* finished in about 3 minutes
+
+    [...]
+    FAIL    github.com/hashicorp/terraform/config/module    6.173s
+    ok      github.com/hashicorp/terraform/dag      2.712s
+    [...]
+
+- second *go*test*./...* finished in less than 40 seconds
+
+    [...]
+    FAIL    github.com/hashicorp/terraform/config/module    7.060s
+    ok      github.com/hashicorp/terraform/dag      (cached)
+    [...]
+
+*** compiled on Windows 10 with a i7 6700HQ (8 cores) and 32GB RAM
 
 * Compiler & Tools - go test
 
@@ -145,7 +205,7 @@ The *-failfast* flag now will stop testing immediately on the first failure, wit
 
 Windows now supports *c-shared*archives* (aka Windows gets DLL support!)
 
-OSX now has support for Go plugins.
+OSX now has support for Go plugins. Windows still doesn't, see issue [[https://github.com/golang/go/issues/19282][#19282]].
 
 * Compiler & Tools
 
@@ -193,7 +253,7 @@ will become:
         /* lone comment */
     }
 
-*Warning*: do not use *gofmt* in your CI or risk errors due to changes.
+*Warning*: The *official*stance* is: *do*not* use *gofmt* in your CI or risk errors due to subtle changes such as these, as *gofmt*is*not*covered*by*the*same*guarantees*as*Go*itself*.
 
 * Compiler & Tools - go fix
 
@@ -233,9 +293,15 @@ You may have noticed the *<autogenerated>* frame (line) in the stack traces befo
 This is now hidden, unless a panic or other issue happens in it.
 This also means that if your code would call *runtime.Caller* with a certain number of skip frames, then this change will be a "breaking change" in its behaviour as the *<autogenerated>* frames will not be counted there either.
 
+* Runtime
+
 Go 1.10 also introduces *soft* and *hard*goals* (limits) for *garbage*collection*.
+
 The soft limit is the current value of the GOGC while the hard limit is 10% higher than the soft limit.
+
 Heavy GC reliant applications (so far only benchmarks) shows that there’s an increase in the heap size of the application.
+
+These limits are not currently configurable, see [[https://golang.org/cl/59970]] for the discussion on it.
 
 * CGO support
 
