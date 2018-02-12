@@ -330,9 +330,10 @@ This is a breaking change but thankfully you can fix this quickly and automatica
 
 * Standard library
 
-- math/rand - the new *math/rand.Shuffle* function and corresponding *math/rand.***Rand.Shuffle* method shuffle an input sequence
+- math/rand - the new *math/rand.Shuffle* function and corresponding *math/rand.***Rand.Shuffle* method shuffle an input sequence ***
 
     func ExampleShuffle() {
+        rand.Seed(time.Now().UnixNano())
         numbers := []byte("12345")
 
         rand.Shuffle(len(numbers), func(i, j int) {
@@ -340,24 +341,35 @@ This is a breaking change but thankfully you can fix this quickly and automatica
         })
 
         for i := range numbers {
-            fmt.Printf("%c: %c\n", letters[i], numbers[i])
+            fmt.Printf("%c ", numbers[i])
         }
 
         // Output:
-        // C: 3
-        // D: 4
-        // A: 1
-        // E: 5
-        // B: 2
+        // 3 4 1 5 2
     }
+
+*** *Warning*: remember to call *rand.Seed()* or the order will be *predictable*!
 
 * Standard Library
 
 - math - the new functions *Round* and *RoundToEven* round their arguments to the nearest floating-point integer; *Round* rounds a half-integer to its larger integer neighbor (away from zero) while *RoundToEven* rounds a half-integer to its even integer neighbor
-- net - the *Conn* and *Listener* implementations in this package now guarantee that when *Close* returns, the underlying file descriptor has been closed. In earlier releases, if the *Close* stopped pending I/O in other goroutines, the closing of the file descriptor could happen in one of those goroutines shortly after *Close* returned
 - net - *TCPListener* and *UnixListener* now implement -syscall.Conn-, to allow setting options on the underlying file descriptor using *syscall.RawConn.Control*
 - net - the *Conn* implementations returned by *Pipe* now support setting read and write deadlines
 - net - the *IPConn.ReadMsgIP*, *IPConn.WriteMsgIP*, *UDPConn.ReadMsgUDP*, and *UDPConn.WriteMsgUDP*, methods are now implemented on *Windows*
+
+* Standard Library
+
+- net - the *Conn* and *Listener* implementations in this package now guarantee that when *Close* returns, the underlying file descriptor has been closed.
+
+In earlier releases, if the *Close* stopped pending I/O in other goroutines, the closing of the file descriptor could happen in one of those goroutines shortly after *Close* returned
+
+This is an important change as it now guarantees that you can do
+
+    net.Listen(...)
+    Close()
+    net.Listen()
+
+and safely be able to acquire new connections. Before, in 1.9 or older, depending on timing and your OS, this could throw an error due to the port being still in use.
 
 * Standard Library
 
@@ -398,7 +410,7 @@ This is a breaking change but thankfully you can fix this quickly and automatica
 - GopherCon Russia 2018, Moscow, Russia, [[http://gophercon-russia.ru/en]]
 - GothamGo 2018, New York, USA, [[http://gothamgo.com]]
 - GopherCon SG 2018, Singapore, [[https://2018.gophercon.sg]]
-- GopherCon Europe - Iceland, Reykjavik, Iceland, [[https://gophercon.is]]
+- GopherCon Europe, Reykjavik, Iceland, [[https://gophercon.is]]
 - GopherCon Denver 2018, Denver, CO, [[http://gophercon.com]]
 - GopherCon Brasil 2018, Florianópolis, Brazil, [[https://2018.gopherconbr.org/en]]
 - GoLab 2018, Florence, Italy, [[http://golab.io]]
