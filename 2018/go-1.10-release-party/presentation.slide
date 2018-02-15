@@ -43,8 +43,8 @@ It follows from the previous version, Go 1.9, [[https://goo.gl/BUVc6Y][released 
 
 #You can view the full release notes here:
 #.link http://golang.org/doc/go1.10 Go 1.10 Release Notes
-You can view the draft release notes here:
-.link http://tip.golang.org/doc/go1.10 Go 1.10 DRAFT Release Notes
+You can view the release notes here:
+.link http://tip.golang.org/doc/go1.10 Go 1.10 Release Notes
 
 * What's changed?
 
