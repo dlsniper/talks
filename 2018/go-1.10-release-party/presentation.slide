@@ -261,12 +261,6 @@ will become:
 
  go tool fix -r context your/package
 
-* Compiler & Tools - go tool pprof
-
-Go 1.10 will also bring an update to the pprof tool.
-
-This brings a host of improvements, among which an updated UI featuring a flame graph representation of the profiling data.
-
 * Compiler & Tools
 
 Most important changes are under *amd64* platform with *359*new*instructions* including the full instruction set for:
