@@ -73,7 +73,7 @@ First, the compilers have been updated to allow the index expression *x[1.0*<<*s
     package main
 
     func main() {
-        var s uint = 10
+        const s = 10
         a := make([]byte, 1.0<<s) // valid
         _ = a[1.0<<s]             // in Go 1.9 accepted by go/types, not accepted by cmd/compile
     }
